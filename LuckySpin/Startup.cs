@@ -16,16 +16,24 @@ namespace LuckySpin
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<Lucky7>();
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, Lucky7 lucky7)
         {
-
             app.Run(async (context) =>
             {
                 await context.Response.WriteAsync(lucky7.Output);
             });
+            app.UseMvc(routes =>
+                {
+                    routes.MapRoute("Default",
+                        "{controller=Spinner}/{action=index}");
+                }
+            );
+
+
 
         }
     }

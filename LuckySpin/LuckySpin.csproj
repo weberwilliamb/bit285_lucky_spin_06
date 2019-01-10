@@ -5,12 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Views\Spinner\Index.cshtml" />
     <None Include="wwwroot\Images\LuckySevenExercise.jpg" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />
   </ItemGroup>
 
 </Project>
