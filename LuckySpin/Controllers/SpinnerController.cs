@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using LuckySpin.Models;
 
 namespace LuckySpin.Controllers
 {
@@ -10,24 +11,27 @@ namespace LuckySpin.Controllers
     {
         Random random = new Random();
 
-        public IActionResult Index()
+
+        public IActionResult Index(int luck)
         {
             int a = random.Next(1, 10);
             int b = random.Next(1, 10);
             int c = random.Next(1, 10);
+            Spin mySpin = new Spin(); 
+            mySpin.Luck = luck;
 
-            if (a == 7 || b == 7 || c == 7)
-                ViewBag.image = "block";
+            if (a == mySpin.Luck || b == mySpin.Luck || c == mySpin.Luck)
+                mySpin.Display = "block";
             else
-                ViewBag.image = "none";
+                mySpin.Display = "none";
 
 
-            ViewBag.a = a;
-            ViewBag.b = b;
-            ViewBag.c = c;
+            mySpin.A = a;
+            mySpin.B = b;
+            mySpin.C = c;
 
 
-            return View();
+            return View(mySpin);
         }
     }
 }
