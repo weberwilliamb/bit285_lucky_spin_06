@@ -12,7 +12,7 @@ namespace LuckySpin.Controllers
         Random random = new Random();
 
 
-        public IActionResult Index(int luck)
+        public IActionResult Index(int luck=7)
         {
             int a = random.Next(1, 10);
             int b = random.Next(1, 10);
