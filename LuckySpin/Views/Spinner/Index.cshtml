@@ -1,16 +1,25 @@
-﻿@model LuckySpin.Models.Spin
-@inject LuckySpin.Models.TextTransformService Transform
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Lucky Spin</title>
-    <link rel="stylesheet" href="/luckyStyles.css">
-</head>
-<body>
-    <button onclick='history.go(0)'>Spin</button>
-    <div>@Model.A</div><div>@Model.B</div><div>@Model.C</div>
-    <h1> Lucky @Transform.numberToText(Model.Luck) </h1>
-    <img src="/Images/LuckySpinCoins.jpg" alt="Coins" style="display:@Model.Display" />
-</body>
-</html>
+﻿@{
+    Layout = "_Layout";
+}
+<h1>Lucky Number Game</h1>
+<h2>Pick your Lucky Number</h2>
+<form action="/Spinner/Index" method="post">
+    <fieldset>
+        <label><input placeholder=" Your Name" /></label>
+        <label>
+            <select>
+                <option selected disabled>Luck Number</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+            </select>
+        </label>
+    </fieldset>
+    <input type="submit" value="Start the Game"/>
+</form>

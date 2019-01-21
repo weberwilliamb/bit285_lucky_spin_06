@@ -9,10 +9,29 @@ namespace LuckySpin.Controllers
 {
     public class SpinnerController : Controller
     {
-        Random random = new Random();
+        /***
+         * Entry Page Action
+         **/
 
+        [HttpGet]
+        public IActionResult Index()
+        {
+                return View();
+        }
 
-        public IActionResult Index(int luck=7)
+        [HttpPost]
+        public IActionResult Index(int num)
+        {
+            return RedirectToAction("SpinIt", new { luck = 3});
+        }
+
+        /***
+         * Spin Action
+         **/  
+               
+        Random random = new Random() ; 
+
+        public IActionResult SpinIt(int luck)
         {
             int a = random.Next(1, 10);
             int b = random.Next(1, 10);
@@ -25,13 +44,12 @@ namespace LuckySpin.Controllers
             else
                 mySpin.Display = "none";
 
-
             mySpin.A = a;
             mySpin.B = b;
             mySpin.C = c;
-
 
             return View(mySpin);
         }
     }
 }
+
