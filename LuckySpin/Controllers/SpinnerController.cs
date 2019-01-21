@@ -34,20 +34,20 @@ namespace LuckySpin.Controllers
 
         public IActionResult SpinIt(Player player)
         {
-            int a = random.Next(1, 10);
-            int b = random.Next(1, 10);
-            int c = random.Next(1, 10);
+            Spin spin = new Spin();
+            spin.Luck = player.Luck;
+            spin.A = random.Next(1, 10);
+            spin.B = random.Next(1, 10);
+            spin.C = random.Next(1, 10);
 
-            if (a == player.Luck || b == player.Luck || c == player.Luck)
-                ViewBag.Display = "block";
+            if (spin.A == spin.Luck ||spin.B == spin.Luck || spin.C == spin.Luck)
+                spin.Display = "block";
             else
-                ViewBag.Display = "none";
+                spin.Display = "none";
 
-            ViewBag.A = a;
-            ViewBag.B = b;
-            ViewBag.C = c;
+            ViewBag.FirstName = player.FirstName;
 
-            return View("SpinIt", player);
+            return View("SpinIt", spin);
         }
     }
 }
