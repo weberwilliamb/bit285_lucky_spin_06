@@ -55,6 +55,32 @@ img {
     border-bottom-left-radius: 50% 50%;
 }
 
+.field-validation-error {
+    font-size: .8em;
+    font-family: Arial Black,Arial,sans-serif;
+    color: darkred;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}
+
+thead {
+    font-family: Arial,sans-serif;
+    font-weight: bold;
+    color: darkred;
+    font-size: 1.2em;
+}
+
+th {
+    border-bottom: solid thin darkred;
+    padding: 0 1em;
+}
+
+td {
+    text-align: center;
+    padding: 0.3em 0;
+}
+
 /*!
  * animate.css -http://daneden.me/animate
  * Version - 3.7.0

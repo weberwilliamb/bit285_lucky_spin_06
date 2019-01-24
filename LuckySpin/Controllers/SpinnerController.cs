@@ -9,6 +9,17 @@ namespace LuckySpin.Controllers
 {
     public class SpinnerController : Controller
     {
+        private Repository repository;
+        Random random = new Random();
+
+        /***
+         * Controller Constructor
+         */
+        public SpinnerController(Repository r)
+        {
+            repository = r;
+        }
+
         /***
          * Entry Page Action
          **/
@@ -22,33 +33,50 @@ namespace LuckySpin.Controllers
         [HttpPost]
         public IActionResult Index(Player player)
         {
-            return RedirectToAction("SpinIt", player);
+            if(ModelState.IsValid)
+                return RedirectToAction("SpinIt", player);
+            return View();
         }
 
         /***
          * Spin Action
          **/  
                
-        Random random = new Random() ; 
-
-
-        public IActionResult SpinIt(Player player)
+         public IActionResult SpinIt(Player player)
         {
-            Spin spin = new Spin();
-            spin.Luck = player.Luck;
-            spin.A = random.Next(1, 10);
-            spin.B = random.Next(1, 10);
-            spin.C = random.Next(1, 10);
+            Spin spin = new Spin
+            {
+                Luck = player.Luck,
+                A = random.Next(1, 10),
+                B = random.Next(1, 10),
+                C = random.Next(1, 10)
+            };
 
-            if (spin.A == spin.Luck ||spin.B == spin.Luck || spin.C == spin.Luck)
-                spin.Display = "block";
+            spin.IsWinning = (spin.A == spin.Luck || spin.B == spin.Luck || spin.C == spin.Luck);
+
+            //Add to Spin Repository
+            repository.AddSpin(spin);
+
+            //Prepare the View
+            if(spin.IsWinning)
+                ViewBag.Display = "block";
             else
-                spin.Display = "none";
+                ViewBag.Display = "none";
 
             ViewBag.FirstName = player.FirstName;
 
             return View("SpinIt", spin);
         }
+
+        /***
+         * ListSpins Action
+         **/
+
+         public IActionResult LuckList()
+        {
+                return View(repository.PlayerSpins);
+        }
+
     }
 }
 
