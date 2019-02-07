@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using LuckySpin.Models;
+using LuckySpin.ViewModels;
 
 namespace LuckySpin.Controllers
 {
@@ -15,10 +16,11 @@ namespace LuckySpin.Controllers
         /***
          * Controller Constructor
          */
-        public SpinnerController()
+        public SpinnerController( LuckySpinDataContext spinData)
         {
             random = new Random();
-            //TODO: Inject the LuckySpinDataContext
+            _dbc = spinData;
+            //Inject the LuckySpinDataContext
         }
 
         /***
@@ -37,7 +39,8 @@ namespace LuckySpin.Controllers
             if (!ModelState.IsValid) { return View(); }
 
             // TODO: Add the Player to the DB and save the changes
-
+            _dbc.Players.Add(player);
+            _dbc.SaveChanges();
             // TODO: BONUS: Build a new SpinItViewModel object with data from the Player and pass it to the View
 
             return RedirectToAction("SpinIt");
@@ -49,7 +52,7 @@ namespace LuckySpin.Controllers
                
          public IActionResult SpinIt()
         {
-            Spin spin = new Spin
+            SpinViewModel spin = new SpinViewModel
             {
                 //Luck = player.Luck,
                 A = random.Next(1, 10),
